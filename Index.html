@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<select name=""  id="country" onchange="setCountry()" style="width: 250px ;">Country
+    <option>Countries</option>
+</select>
+
+<select name="" id="state" style="width: 250px;" onchange="setState()">State
+    <option>States</option>
+
+</select>
+
+<select name="" id="city" style="width: 250px;">
+    <option>City</option>
+</select>
+<body>
+    <!-- Hello world
+    <script>
+     fetch('https://raw.githubusercontent.com/dr5hn/countries-states-cities-database/master/countries%2Bstates%2Bcities.json').then(res=>res.json()).then(data=>console.log(data[0].states[0].cities))
+    </script> -->
+    <script>
+        var country1;
+        var locali;
+        var localj;
+        function setCountry()
+        {
+country1=document.getElementById("country").value;
+fetch('https://raw.githubusercontent.com/dr5hn/countries-states-cities-database/master/countries%2Bstates%2Bcities.json').then(res=>res.json()).then(data=>{
+
+for(var i=0;i<data.length;i++)
+{
+    document.getElementById("state").innerHTML=""
+  document.getElementById("city").innerHTML=""
+  if(data[i].name==country1)
+  {
+   
+  locali=i
+  break;
+  }
+}
+  for(var j=0;j<data[locali].states.length;j++)
+  {
+    //console.log(data[i].states[j].name)
+    let state=data[locali].states[j].name;
+   
+    let output=`
+    <option value=${state}>${state}</option>
+    `
+    document.getElementById("state").innerHTML+=output;
+  }
+
+  
+
+
+})
+     }
+
+
+        var state1;
+        function setState()
+        {
+            let coun=document.getElementById("country").value;
+            let stat=document.getElementById("state").value;
+            fetch('https://raw.githubusercontent.com/dr5hn/countries-states-cities-database/master/countries%2Bstates%2Bcities.json').then(res=>res.json()).then(data=>{
+
+              
+                        for(let j=0;j<data[locali].states.length;j++)
+                        {
+                            document.getElementById("city").innerHTML=""
+                            if(data[locali].states[j].name==stat)
+                            {
+                                localj=j
+
+                                break
+                            }
+                            
+                        }
+                               
+                                for(let k=0;k<data[locali].states[localj].cities.length;k++)
+                                {
+                                    
+                                    let city=data[locali].states[localj].cities[k].name
+                                    let output=`
+                                    
+                                    <option value=${city}>${city}</option>
+                                    
+                                    `
+                                    document.getElementById("city").innerHTML+=output
+                                }
+                            
+                            
+                        
+                    
+                
+            })
+        }
+       
+            fetch('https://raw.githubusercontent.com/dr5hn/countries-states-cities-database/master/countries%2Bstates%2Bcities.json').then(res=>res.json()).then(data=>
+            {
+                for(var i=0;i<data.length;i++)
+                {
+                    let country=data[i].name;
+                    let output=`
+                    <option value=${country}>${country}</option>
+                    `
+                    document.getElementById("country").innerHTML+=output;
+                }
+            })
+        
+
+
+    </script>
+</body>
+</html>
